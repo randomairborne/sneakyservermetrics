@@ -13,6 +13,7 @@ async fn main() {
     let members = IntGauge::new("members", "How many total members there are").unwrap();
     let presences = IntGauge::new("presences", "How many members are online").unwrap();
     let boosts = IntGauge::new("boosts", "How many boosts the server has").unwrap();
+
     let reg = Registry::new();
     reg.register(Box::new(members.clone())).unwrap();
     reg.register(Box::new(presences.clone())).unwrap();
@@ -44,6 +45,7 @@ async fn main() {
     let router = axum::Router::new()
         .route("/metrics", get(metrics))
         .with_state(state);
+    println!("Starting server on 0.0.0.0:9000");
     axum::Server::bind(&([0, 0, 0, 0], 9000).into())
         .serve(router.into_make_service())
         .with_graceful_shutdown(async move {
@@ -83,6 +85,7 @@ pub async fn event_loop(gauges: Gauges, client: Client, mut shutdown: Receiver<(
                 continue;
             }
         };
+        println!("Got server data {info:?}");
         gauges.update(info);
     }
 }

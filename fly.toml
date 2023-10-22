@@ -1,0 +1,19 @@
+# fly.toml app configuration file generated for sneaky-server-metrics on 2023-10-22T14:41:28-06:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "sneaky-server-metrics"
+primary_region = "iad"
+
+[build]
+image = "ghcr.io/randomairborne/sneakyservermetrics"
+
+[experimental]
+allowed_public_ports = []
+
+[[services]]
+
+[metrics]
+port = 9000
+path = "/metrics"
