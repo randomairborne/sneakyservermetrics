@@ -6,6 +6,9 @@
 app = "sneaky-server-metrics"
 primary_region = "iad"
 
+# there's no way to do graceful shutdown in axum yet, so....
+kill_signal = "SIGKILL"
+
 [build]
 image = "ghcr.io/randomairborne/sneakyservermetrics"
 
